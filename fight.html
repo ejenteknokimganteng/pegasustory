@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 5 – Boss Moros</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#050712;color:#fff;font-family:Arial, sans-serif;overflow:hidden}
+#game{position:relative;width:100vw;height:100vh;background:radial-gradient(#121657,#050712)}/* ENTITY */ .entity{position:absolute;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold} #pegasus{background:#00eaff;left:20%;top:60%} #dragon{background:#00ff9a;left:17%;top:66%} #andromeda{background:#b48cff;left:23%;top:66%} #moros{background:#ff3b3b;width:52px;height:52px;right:20%;top:50%}
+
+/* UI */ #ui{position:absolute;top:10px;left:10px;right:10px} .bar{background:#222;border-radius:10px;height:14px;overflow:hidden;margin-bottom:6px} .fill{height:100%;background:#3cff7a;width:100%} .boss .fill{background:#ff4d4d}
+
+/* JOYSTICK */ #joystick{position:absolute;left:20px;bottom:20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08)} #stick{position:absolute;left:50%;top:50%;width:44px;height:44px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);transition:.08s}
+
+#attack{position:absolute;right:20px;bottom:24px;width:90px;height:90px;border-radius:50%;background:#f5c542;color:#000;font-weight:bold;display:flex;align-items:center;justify-content:center}
+
+/* CUTSCENE */ #cutscene{display:none;position:fixed;inset:0;background:black;color:white;z-index:9999;align-items:center;justify-content:center;flex-direction:column;text-align:center} .cut{animation:flash .4s infinite alternate;color:#00eaff;font-weight:bold} @keyframes flash{from{opacity:.4}to{opacity:1}} </style>
+
+</head>
+<body>
+<div id="game">
+  <div id="pegasus" class="entity">Pegasus</div>
+  <div id="dragon" class="entity">Dragon</div>
+  <div id="andromeda" class="entity">Andromeda</div>
+  <div id="moros" class="entity">Moros</div>  <div id="ui">
+    <div class="bar"><div id="hpPegasus" class="fill"></div></div>
+    <div class="bar boss" style="height:18px"><div id="hpMoros" class="fill"></div></div>
+  </div>  <div id="joystick"><div id="stick"></div></div>
+  <div id="attack">ATTACK</div>
+</div><div id="cutscene">
+  <p class="cut">💥 PEGASUS RYUSEIKEN 💥</p>
+  <p class="cut">🐉 ROZAN SHORYU HA 🐉</p>
+  <p class="cut">⛓️ NEBULA CHARGE ⛓️</p>
+  <small>Serangan gabungan tiga Saint!</small>
+</div><script>
+/* ===== HP ===== */
+let hpPegasus = 100;
+let hpMoros = 356;
+let active = true;
+
+const pegasus = document.getElementById('pegasus');
+const hpP = document.getElementById('hpPegasus');
+const hpM = document.getElementById('hpMoros');
+
+function updateHP(){
+  hpP.style.width = Math.max(0,hpPegasus) + '%';
+  hpM.style.width = Math.max(0,(hpMoros/3.56)) + '%';
+}
+updateHP();
+
+/* ===== JOYSTICK ===== */
+const joy = document.getElementById('joystick');
+const stick = document.getElementById('stick');
+let drag=false,center={x:0,y:0},vel={x:0,y:0};
+const MAX=36, DEAD=6, SPEED=.18;
+
+joy.onpointerdown=e=>{
+  drag=true;
+  const r=joy.getBoundingClientRect();
+  center={x:r.left+r.width/2,y:r.top+r.height/2};
+};
+window.onpointermove=e=>{
+  if(!drag||!active)return;
+  let dx=e.clientX-center.x, dy=e.clientY-center.y;
+  let d=Math.hypot(dx,dy);
+  if(d<DEAD){vel={x:0,y:0};return;}
+  d=Math.min(d,MAX);
+  let nx=dx/d*d, ny=dy/d*d;
+  stick.style.transform=`translate(${nx}px,${ny}px)`;
+  vel={x:nx*SPEED,y:ny*SPEED};
+};
+window.onpointerup=()=>{drag=false;vel={x:0,y:0};stick.style.transform='translate(-50%,-50%)'};
+
+/* ===== LOOP ===== */
+function loop(){
+  let r=pegasus.getBoundingClientRect();
+  pegasus.style.left = Math.max(0,Math.min(90,(r.left+vel.x)/innerWidth*100))+'%';
+  pegasus.style.top  = Math.max(10,Math.min(90,(r.top+vel.y)/innerHeight*100))+'%';
+  requestAnimationFrame(loop);
+}
+loop();
+
+/* ===== ATTACK ===== */
+document.getElementById('attack').onclick=()=>{
+  if(!active)return;
+  hpMoros -= 18 + Math.random()*12; // pegasus
+  hpMoros -= 10; // dragon AI
+  hpMoros -= 8;  // andromeda AI
+  updateHP();
+  if(hpMoros<=0) endBattle();
+};
+
+/* ===== AI MOROS ===== */
+setInterval(()=>{
+  if(!active)return;
+  if(Math.random()<.4){hpPegasus-=8+Math.random()*8;updateHP();}
+  if(hpPegasus<=0) location.reload();
+},1200);
+
+/* ===== END ===== */
+function endBattle(){
+  active=false;
+  document.getElementById('cutscene').style.display='flex';
+  setTimeout(()=>{
+    window.location.href='chapter6.html';
+  },4000);
+}
+</script></body>
+</html>

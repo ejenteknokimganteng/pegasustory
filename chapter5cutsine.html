@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter 5 - Penjara Takdir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: radial-gradient(circle at top, #300000, #000000);
+      color: #f5f5f5;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff4444;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    .story {
+      background: rgba(0,0,0,0.55);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,0,0,0.3);
+    }
+
+    .dialog {
+      margin: 15px 0;
+      padding-left: 10px;
+      border-left: 3px solid #ff5555;
+    }
+
+    .name {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .moros {
+      color: #ff3333;
+      font-weight: bold;
+    }
+
+    .btn-area {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff0000, #700000);
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      font-size: 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 0 15px red;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px red;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>CHAPTER 5<br>PENJARA TAKDIR</h1>
+
+    <div class="story">
+      <p>
+        Setelah mengalahkan Moros di Penjara Hades Nomor 4,  
+        <span class="name">Pegasus Dafa</span>,  
+        <span class="name">Dragon Syaki</span>, dan  
+        <span class="name">Andromeda Shun</span>  
+        melanjutkan perjalanan menuju Penjara Hades Nomor 5 — <b>Penjara Takdir</b>.
+      </p>
+
+      <p>
+        Namun tanpa mereka sadari,  
+        <b>Pandora</b> telah membangkitkan kembali Moros  
+        dan memberinya kekuatan yang jauh lebih besar.
+      </p>
+
+      <div class="dialog">
+        <span class="moros">Moros:</span><br>
+        “HAHAHAHAHAHA!!  
+        Kita bertemu lagi para saint muda pelindung Athena…”
+      </div>
+
+      <div class="dialog">
+        <span class="name">Pegasus Dafa:</span><br>
+        “Moros?! Kau masih hidup?!”
+      </div>
+
+      <div class="dialog">
+        <span class="moros">Moros:</span><br>
+        “Tentu saja…  
+        Sekarang aku lebih kuat berkat Nona Pandora!”
+      </div>
+
+      <p>
+        Cosmo ketiga saint muda itu menyala bersamaan.  
+        Tekad mereka tidak tergoyahkan.
+      </p>
+
+      <div class="dialog">
+        <span class="name">Dragon Syaki:</span><br>
+        “Walaupun dia lebih kuat, itu tidak akan menghentikan kita!”
+      </div>
+
+      <div class="dialog">
+        <span class="name">Andromeda Shun:</span><br>
+        “Demi Athena… dunia… dan Scyintia…”
+      </div>
+
+      <p><b>Pertarungan takdir pun tak terhindarkan.</b></p>
+    </div>
+
+    <div class="btn-area">
+      <button onclick="lanjut()">🔥 HADAPI MOROS !!! 🔥</button>
+    </div>
+  </div>
+
+  <script>
+    function lanjut() {
+      // ganti ke halaman boss fight
+      window.location.href = "fight.html";
+    }
+  </script>
+</body>
+</html>
